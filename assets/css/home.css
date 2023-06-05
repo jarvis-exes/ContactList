@@ -1,0 +1,94 @@
+body{
+    font-family: sans-serif;
+    margin: 10%;
+}
+
+#main-heading{
+    font-family: monospace;
+    
+} 
+
+.c-letter{
+    font-size: 100px;
+    
+}
+
+.s-text{
+    font-size: 30px;
+    margin-left: -10px;
+    letter-spacing: 5px;
+}
+
+form input{
+    border: 0px solid grey;
+    border-bottom: 2px solid grey;
+    margin-bottom: 30px;
+}
+
+form button{
+    background-color: orangered;
+    color: aliceblue;
+    border: solid orangered;
+}
+
+#contact-list{
+    list-style: none;
+    min-width: 400px;
+    width: 60%;
+    max-width: 400px;
+    position: relative;
+    left: -45px;
+
+}
+
+#contact-list li:nth-child(2n){
+    display: flex;
+    /* background-color:aliceblue; */
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+#contact-list li:nth-child(2n+1){
+    display: flex;
+    background-color: rgb(230, 230, 230);
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+#contact-list li:hover {
+    transition: .2s all ;
+    transform: scale(1.1);
+}
+
+.name{
+    color: darkgreen;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px;
+    align-self:center;
+
+}
+
+.phone{
+    color: grey;
+    padding: 10px;
+    align-self:center;
+    text-align: end;
+}
+
+.del-button{
+    background-color: red;
+    height: 30px;
+    border: none;
+    align-self:center;
+    margin-right: 10px;
+}
+
+.del-button:hover{
+    background-color: rgb(255, 106, 106);
+}
+
+.del-button a{
+    color: white;
+    text-decoration: none;
+}
