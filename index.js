@@ -12,71 +12,64 @@ app.use(express.urlencoded()); // middleware for parsing
 app.use(express.static("assets")); // for attaching static files like css
 
 
-var contactList = [
-    {
-        name:"Naruto",
-        phone:"8696771000"
-    },
-    {
-        name:"Sasuke",
-        phone:"8696771001"
-    },
-    {
-        name:"Sakura",
-        phone:"8696771002"
-    }
-]
-
 app.get('/',function(req,res){
-    return res.render('home', {
-        title : "Contact List",
-        contact_list: contactList
+    
+    Contact.find({},function(err,contacts){
+        if(err){
+            console.log("Error is fetching contacts from Database",err);
+            return;
+        }
+
+        return res.render('home', {
+                title : "Contact List",
+                contact_list: contacts
+        });
     });
 });
 
 app.post('/create-contact',function(req,res){
-    // contactList.push({
-    //     name: req.body.name,
-    //     phone: req.body.phone
-    // });
 
-    // Contact.create({
-    //     name: req.body.name,
-    //     phone: req.body.phone
-    // }, function(err, newContact){
-    //     if(err){
-    //         console.log(err,'Error !! Creating Contact');
-    //         return;
-    //     }
-    //     console.log('***********',newContact);
-    //     res.redirect('back');
-    //     // res.redirect('/');
-    // });
-
-    Contact.create({                         
+    Contact.create({
         name: req.body.name,
         phone: req.body.phone
-     })
-     .then(function(newContact) {
-         console.log('*******',newContact);
-         return res.redirect('back');
-     })
-     .catch(function(err) {
-         console.log(err,'error in creating a contact!');
-         return;
-     });
+    }, function(err, newContact){
+        if(err){
+            console.log(err,'Error !! Creating Contact');
+            return;
+        }
+        console.log('***********',newContact);
+        res.redirect('back');
+    });
+
+    // Use this when using 7+ ver of Mongoose
+    // Contact.create({                         
+    //     name: req.body.name,
+    //     phone: req.body.phone
+    //  })
+    //  .then(function(newContact) {
+    //      console.log('*******',newContact);
+    //      return res.redirect('back');
+    //  })
+    //  .catch(function(err) {
+    //      console.log(err,'error in creating a contact!');
+    //      return;
+    //  });
 });
 
 app.get('/delete-contact',function(req,res){
-    let phone = req.query.phone;
+    // Get the id from query in URL
+    let id = req.query.id;  
 
-    let contactIndex = contactList.findIndex(contact => contact.phone == phone);
+    Contact.findByIdAndDelete(id, function(err){
+        if(err){
+            console.log(err,"Error is deleting the contact");
+            return;
+        }
 
-    if(contactIndex != -1){
-        contactList.splice(contactIndex, 1);
-    }
+        return res.redirect('back');
+    });
 
-    return res.redirect('back');
+
 });
 
 
